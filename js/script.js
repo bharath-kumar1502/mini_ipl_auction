@@ -159,7 +159,8 @@ socket.on('gameStateUpdate', (state) => {
 });
 
 socket.on('auctionStarted', () => {
-    alert("The Auction Has Started!");
+    console.log("Auction Started Event Received");
+    if (gameState) gameState.auctionStarted = true;
 });
 
 socket.on('timerTick', (timeLeft) => {
@@ -360,11 +361,12 @@ function enterAuctionRoom() {
     // Load first player
     loadPlayer(gameState ? gameState.currentPlayerIndex : 0);
 
-    // Auto-tell server to start if we are the first to join
-    if (!gameState.auctionStarted) {
+    // Auto-tell server to start if we are the first to join or if it's not started
+    if (!gameState || !gameState.auctionStarted) {
+        console.log("Triggering startAuction for room", roomCode);
         setTimeout(() => {
             socket.emit('startAuction', { roomCode });
-        }, 1500);
+        }, 1000);
     }
 }
 

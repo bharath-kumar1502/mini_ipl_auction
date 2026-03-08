@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 8000;
 
 app.use(express.static(path.join(__dirname, '/')));
 
@@ -194,8 +194,13 @@ io.on('connection', (socket) => {
     socket.on('startAuction', ({ roomCode }) => {
         const room = rooms[roomCode];
         if (room && !room.auctionStarted) {
+            console.log(`[AUCTION STARTING] Room ${roomCode}`);
             room.auctionStarted = true;
             io.to(roomCode).emit('auctionStarted');
+
+            // Ensure any late joiners or existing players get the updated state
+            io.to(roomCode).emit('gameStateUpdate', getClientState(room));
+
             startTimer(roomCode);
         }
     });
