@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+*.log
+.env
+playerlist/*.pdf
+playerlist/*.json
+!playerlist/test_parse.js
+!playerlist/transform_players.js
+!playerlist/inject_players.js

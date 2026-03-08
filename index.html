@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TATA IPL 2026 Mega Auction Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- MODAL -->
+        <div id="username-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content glass-panel">
+                <h2 id="modal-title">Enter Username</h2>
+                <input type="text" id="username-input" class="modern-input" placeholder="Name (e.g. Thala 07)"
+                    autocomplete="off" maxlength="15">
+                <input type="text" id="roomcode-input" class="modern-input" placeholder="Room Code (e.g. X9Q2)"
+                    autocomplete="off" maxlength="6" style="display: none; text-transform: uppercase;">
+                <div class="modal-actions">
+                    <button id="btn-modal-cancel" class="btn btn-secondary">Cancel</button>
+                    <button id="btn-modal-confirm" class="btn btn-primary">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEAM OVERVIEW MODAL -->
+        <div id="team-overview-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content glass-panel" style="max-width: 600px; padding: 2rem;">
+                <div class="team-overview-header">
+                    <div id="overview-logo-container" class="overview-logo"></div>
+                    <div>
+                        <h2 id="overview-team-name" style="margin-bottom: 5px;">Team Name</h2>
+                        <h3 id="overview-team-purse" style="color: #4ade80; margin: 0;">₹0.00 Cr</h3>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 20px; text-transform: uppercase; letter-spacing: 1px; color: #a1a1aa;">Currently
+                    Retained Squad</h4>
+                <div id="overview-retained-list" class="overview-squad-list">
+                    <!-- Retained players populated via JS -->
+                </div>
+
+                <div class="modal-actions" style="margin-top: 30px;">
+                    <button id="btn-overview-cancel" class="btn btn-secondary">Go Back</button>
+                    <button id="btn-overview-confirm" class="btn btn-primary"
+                        style="font-size: 1.1rem; padding: 0.8rem 2rem;">Start Auction Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 1: TEAM SELECTION -->
+        <section id="selection-screen" class="screen active">
+            <div class="top-nav">
+                <button id="btn-play-alone" class="nav-btn">Play Alone</button>
+                <div class="multiplayer-nav">
+                    <button id="btn-create-room" class="nav-btn">Create Room</button>
+                    <button id="btn-join-room" class="nav-btn">Join Room</button>
+                </div>
+            </div>
+            <div class="header">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Indian_Premier_League_Official_Logo.svg/1200px-Indian_Premier_League_Official_Logo.svg.png"
+                    alt="IPL Logo" class="ipl-logo-large">
+                <h1>WELCOME TO <br>TATA IPL 2026 <span>AUCTION</span></h1>
+                <p id="header-subtitle">Select your team to manage. The other 9 teams will be controlled by AI.</p>
+            </div>
+
+            <div class="teams-grid" id="teams-grid">
+                <!-- Teams loaded via JS -->
+            </div>
+        </section>
+
+        <!-- SCREEN 2: MAIN AUCTION -->
+        <section id="auction-screen" class="screen" style="display: none;">
+
+            <!-- Left Sidebar -->
+            <aside class="sidebar left-sidebar">
+                <div class="panel">
+                    <h2>Live Purse</h2>
+                    <div id="leaderboard-list" class="list-container">
+                        <!-- Leaderboard loaded via JS -->
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center Console -->
+            <main class="auction-dashboard">
+                <header class="dashboard-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Indian_Premier_League_Official_Logo.svg/1200px-Indian_Premier_League_Official_Logo.svg.png"
+                        alt="IPL Logo" class="ipl-logo-small">
+                    <h2>PLAYER AUCTION</h2>
+                </header>
+
+                <div class="card-container">
+                    <div class="player-card glass-panel" id="player-card">
+                        <div class="player-avatar-wrap">
+                            <div class="css-avatar" id="current-player-avatar"></div>
+                        </div>
+                        <div class="player-info">
+                            <h1 id="current-player-name">Player Name</h1>
+                            <h3 id="current-player-role">Role | Country</h3>
+                            <div class="stats">
+                                <span class="badge" id="current-player-base-price">Base: ₹2.00 Cr</span>
+                                <span class="badge" id="current-player-rating">⭐ 90</span>
+                            </div>
+                        </div>
+                        <div id="sold-message" class="sold-label" style="display: none;">SOLD</div>
+                    </div>
+                </div>
+
+                <div class="bidding-console glass-panel">
+                    <div class="bid-status">
+                        <div class="timer-circle">
+                            <span id="timer">10</span>
+                        </div>
+                        <div class="current-bid-info">
+                            <p class="label">Current Highest Bid</p>
+                            <h2 id="current-bid">₹0.00 Cr</h2>
+                            <p class="bidder">Bidder: <strong id="highest-bidder-name">-</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="btn-bid" class="btn btn-primary">PLACE BID</button>
+                        <button id="btn-pass" class="btn btn-secondary">PASS</button>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Right Sidebar -->
+            <aside class="sidebar right-sidebar">
+                <div class="panel">
+                    <h2>My Squad</h2>
+                    <div id="my-squad-list" class="list-container">
+                        <!-- Squad loaded via JS -->
+                    </div>
+                </div>
+            </aside>
+
+        </section>
+        <!-- SCREEN 3: FINAL SUMMARY -->
+        <section id="final-summary-screen" class="screen" style="display: none;">
+            <div class="header">
+                <h1>AUCTION <span>COMPLETE</span></h1>
+                <p>Final Squads for IPL 2026</p>
+                <button id="btn-restart" class="btn btn-primary" onclick="window.location.reload()">Start New
+                    Auction</button>
+            </div>
+            <div class="summary-grid" id="final-summary-grid">
+                <!-- Final team stats & squads loaded via JS -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Team Details Modal (Squad Viewer) -->
+    <div id="team-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content team-modal-content">
+            <button id="btn-team-modal-close" class="modal-close">&times;</button>
+            <div id="team-modal-header" class="team-modal-header">
+                <!-- Data loaded via JS -->
+            </div>
+            <div id="team-modal-stats" class="team-modal-stats">
+                <!-- Data loaded via JS -->
+            </div>
+            <div id="team-modal-squad" class="team-modal-squad">
+                <!-- Data loaded via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Socket.IO Client -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Game Data & Logic -->
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
