@@ -938,3 +938,164 @@ body.auction-mode .app-container {
     color: var(--accent);
     font-weight: 600;
 }
+
+/* --- MEDIA QUERIES FOR RESPONSIVENESS --- */
+
+/* Tablets and smaller screens */
+@media screen and (max-width: 1024px) {
+
+    /* Adjust main grid */
+    #auction-screen {
+        grid-template-columns: 250px 1fr 250px;
+        gap: 1rem;
+    }
+
+    .bidding-console {
+        padding: 1rem;
+    }
+
+    .current-bid-info h2 {
+        font-size: 2.2rem;
+    }
+}
+
+/* Mobile Devices */
+@media screen and (max-width: 768px) {
+
+    .app-container,
+    body.auction-mode .app-container {
+        padding: 1rem;
+        height: auto;
+        overflow-y: auto;
+        display: block;
+    }
+
+    body.auction-mode {
+        overflow-y: auto;
+    }
+
+    .top-nav {
+        position: relative;
+        top: 0;
+        padding: 1rem 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .header h1 {
+        font-size: 2.5rem;
+    }
+
+    .teams-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 0.8rem;
+    }
+
+    /* Stack auction screen grid vertically */
+    #auction-screen {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow-y: auto;
+    }
+
+    /* Change order so center console is on top */
+    .auction-dashboard {
+        order: -1;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Make sidebars auto height */
+    .sidebar {
+        height: 300px;
+        /* Fixed height for scrollable areas on mobile */
+        margin-bottom: 1rem;
+    }
+
+    /* Adjust player card */
+    .player-card {
+        max-width: 100%;
+    }
+
+    .player-avatar-wrap {
+        width: 100px;
+        height: 100px;
+    }
+
+    .player-card h2 {
+        font-size: 1.8rem;
+    }
+
+    .player-info h1 {
+        font-size: 1.8rem;
+    }
+
+    .bidding-console {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .bid-status {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .timer-circle {
+        margin: 0 auto;
+    }
+
+    .action-buttons {
+        width: 100%;
+    }
+
+    .btn {
+        flex: 1;
+        /* Make buttons stretch evenly */
+    }
+
+    /* Team overview modal adjustments */
+    .team-overview-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .overview-squad-list {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        padding: 1.5rem;
+    }
+}
+
+/* Small Mobile */
+@media screen and (max-width: 480px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .teams-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .current-bid-info h2 {
+        font-size: 2rem;
+    }
+
+    .team-modal-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
